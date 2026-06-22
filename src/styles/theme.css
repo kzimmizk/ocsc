@@ -1,0 +1,38 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   BRAND THEME — edit these values to re-skin the whole site.
+
+   These are the club's colors, fonts, and spacing in ONE place. Change a hex
+   value here and every button, header, and link updates on the next build.
+   Palette derived from the OCSC crest (navy + sky blue + white).
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Brand colors — sampled from the OCSC logo. */
+  --color-primary: #0a2a52;        /* crest navy */
+  --color-primary-dark: #061b38;
+  --color-accent: #20a8e0;         /* crest sky blue */
+  --color-accent-dark: #1a86b8;
+
+  /* Neutrals */
+  --color-ink: #11203a;            /* primary text (deep navy ink) */
+  --color-muted: #5a6b82;          /* secondary text */
+  --color-bg: #ffffff;
+  --color-bg-alt: #eef4fa;         /* alternating section background (cool tint) */
+  --color-border: #d9e3ee;
+  --color-on-primary: #ffffff;     /* text on primary background */
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-display: var(--font-sans);
+
+  /* Layout */
+  --max-width: 1100px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 6px 24px rgba(16, 32, 24, 0.08);
+  --space: 1rem;
+
+  /* Header height (used for sticky-nav offsets) */
+  --header-height: 72px;
+}

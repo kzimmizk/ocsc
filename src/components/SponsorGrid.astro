@@ -1,0 +1,85 @@
+---
+import { getCollection } from 'astro:content';
+
+const sponsors = (await getCollection('sponsors')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+{
+  sponsors.length > 0 && (
+    <ul class="sponsors">
+      {sponsors.map(({ data }) => {
+        const tile = (
+          <img
+            class="sponsors__logo"
+            src={`/sponsors/${data.logo}`}
+            alt={data.name}
+            loading="lazy"
+          />
+        );
+        return (
+          <li class="sponsors__item" data-tier={data.tier}>
+            {data.url ? (
+              <a href={data.url} rel="noopener" aria-label={data.name}>
+                {tile}
+              </a>
+            ) : (
+              tile
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  )
+}
+
+<style>
+  .sponsors {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .sponsors__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.75rem 2rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    min-height: 190px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  /* Lift clickable sponsor tiles slightly on hover. */
+  .sponsors__item:has(a:hover) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(16, 32, 24, 0.12);
+  }
+  .sponsors__logo {
+    max-height: 130px;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Smaller, 2-up logos on phones. */
+  @media (max-width: 600px) {
+    .sponsors {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+    .sponsors__item {
+      min-height: 116px;
+      padding: 1rem;
+    }
+    .sponsors__logo {
+      max-height: 72px;
+    }
+  }
+</style>

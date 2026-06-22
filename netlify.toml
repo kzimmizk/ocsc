@@ -1,0 +1,17 @@
+# Netlify build configuration for the Ouray County Soccer Club site.
+# Connect this repo in the Netlify UI; these settings drive deploy-on-push.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Static-site security/quality headers. Adjust as needed.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"

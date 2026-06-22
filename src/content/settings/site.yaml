@@ -1,0 +1,28 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Site-wide settings. Edit these values to update the header, footer, and the
+# Register / Donate buttons everywhere they appear. After saving, the site
+# rebuilds automatically on the next deploy.
+# ─────────────────────────────────────────────────────────────────────────────
+
+clubName: "Ouray County Soccer Club"
+shortName: "OCSC"
+
+# Big headline on the home page hero.
+heroHeadline: "Ouray County Soccer Club"
+# Short tagline shown above the headline (also used as the default meta description).
+tagline: "Youth soccer in the heart of the San Juans."
+
+# The "Register" button links here (PlayMetrics signup).
+registerUrl: "https://playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0yNjE0LTE3ODY3NTA4MTZ8Um5nTkp2VXgzUEo0aG9pN2grZGRlVVFRR0dFVnFXWDdyYlVDZGNPcm1uYz0="
+
+# Optional: a direct donate link. Leave blank to point the Donate button at the
+# Sponsorship & Donations page instead.
+donateUrl: "https://www.zeffy.com/en-US/donation-form/ocsc-donation"
+
+contactEmail: "admin@ouraycountysoccer.org"
+location: "Ridgway, Colorado"
+mailingAddress: "PO Box 715, Ridgway, CO 81432"
+
+social:
+  facebook: "https://www.facebook.com/OurayCountySoccerClub/"
+  instagram: "https://www.instagram.com/ouraycountysoccerclub/"

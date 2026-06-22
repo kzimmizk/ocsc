@@ -1,0 +1,204 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+  site: CollectionEntry<'settings'>['data'];
+}
+
+const { site } = Astro.props;
+
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/about/', label: 'About' },
+  { href: '/contacts/', label: 'Contacts' },
+  { href: '/sponsorship/', label: 'Sponsorship & Donations' },
+  { href: '/documents/', label: 'Documents' },
+];
+
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? current === '/' : current.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container header__inner">
+    <a class="brand" href="/">
+      <img src="/logo.webp" alt={`${site.clubName} logo`} width="44" height="44" />
+      <span class="brand__name">{site.shortName ?? site.clubName}</span>
+    </a>
+
+    <div class="header__right">
+      <SocialLinks
+        facebook={site.social?.facebook}
+        instagram={site.social?.instagram}
+        class="header__social"
+      />
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+      <label for="nav-toggle" class="nav-toggle__btn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav" aria-label="Primary">
+      <ul class="nav__list">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav__link', { 'is-active': isActive(item.href) }]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a class="btn btn--primary nav__cta" href={site.registerUrl} rel="noopener">
+            Register
+          </a>
+        </li>
+      </ul>
+    </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: var(--header-height);
+  }
+  .header__right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+    color: var(--color-ink);
+  }
+  .brand:hover {
+    text-decoration: none;
+  }
+  .brand__name {
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+  .nav__list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+  }
+  .nav__link {
+    color: var(--color-ink);
+    font-weight: 600;
+    padding: 0.35rem 0;
+    border-bottom: 2px solid transparent;
+  }
+  .nav__link:hover {
+    text-decoration: none;
+    border-bottom-color: var(--color-accent);
+  }
+  .nav__link.is-active {
+    border-bottom-color: var(--color-primary);
+  }
+  .nav__cta {
+    padding: 0.5rem 1.1rem;
+  }
+
+  /* Mobile toggle (hidden on desktop) */
+  .nav-toggle__btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 6px;
+    cursor: pointer;
+  }
+  .nav-toggle__btn span {
+    width: 26px;
+    height: 3px;
+    background: var(--color-ink);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  @media (max-width: 960px) {
+    .nav-toggle__btn {
+      display: flex;
+    }
+    .nav {
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: 0 12px 24px rgba(16, 32, 24, 0.12);
+      display: none;
+      max-height: calc(100vh - var(--header-height));
+      overflow-y: auto;
+    }
+    .nav-toggle:checked ~ .nav {
+      display: block;
+    }
+    .nav__list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0.25rem 1.25rem 1.25rem;
+    }
+    .nav__list li {
+      padding: 0;
+    }
+    .nav__link {
+      display: block;
+      padding: 0.9rem 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+      border-left: 3px solid transparent;
+    }
+    .nav__link:hover {
+      border-bottom-color: var(--color-border);
+    }
+    .nav__link.is-active {
+      color: var(--color-primary);
+      background: var(--color-bg-alt);
+      border-left-color: var(--color-primary);
+      border-bottom-color: var(--color-border);
+    }
+    .nav__cta {
+      margin-top: 0.9rem;
+      text-align: center;
+      padding: 0.85rem 1.1rem;
+    }
+
+    /* Animate hamburger into an X when the menu is open. */
+    .nav-toggle:checked ~ .nav-toggle__btn span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .nav-toggle:checked ~ .nav-toggle__btn span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle:checked ~ .nav-toggle__btn span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+</style>

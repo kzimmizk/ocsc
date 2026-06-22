@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BoardCard from '../components/BoardCard.astro';
+import { getCollection, render } from 'astro:content';
+
+const members = (await getCollection('board')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// Pre-render each member's optional markdown bio.
+const cards = await Promise.all(
+  members.map(async (m) => ({
+    data: m.data,
+    Content: (await render(m)).Content,
+  })),
+);
+---
+
+<BaseLayout
+  title="Contacts"
+  description="Meet the board and staff of the Ouray County Soccer Club."
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Get in Touch</p>
+      <h1>Contacts</h1>
+      <p class="section__intro">
+        Our board and staff are volunteers. Reach out with questions about
+        registration, sponsorship, or coaching.
+      </p>
+      <div class="grid">
+        {
+          cards.map(({ data, Content }) => (
+            <BoardCard
+              name={data.name}
+              role={data.role}
+              email={data.email}
+              photo={data.photo}
+            >
+              <Content />
+            </BoardCard>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+</style>

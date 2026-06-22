@@ -1,0 +1,111 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+  site: CollectionEntry<'settings'>['data'];
+}
+
+const { site } = Astro.props;
+const year = 2026;
+---
+
+<footer class="site-footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <img src="/logo.webp" alt="" width="40" height="40" />
+      <div>
+        <p class="footer__name">{site.clubName}</p>
+        {site.mailingAddress && <p class="footer__line">{site.mailingAddress}</p>}
+        {
+          site.contactEmail && (
+            <p class="footer__line">
+              <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+            </p>
+          )
+        }
+      </div>
+    </div>
+
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/about/">About</a>
+      <a href="/contacts/">Contacts</a>
+      <a href="/sponsorship/">Sponsorship &amp; Donations</a>
+      {site.donateUrl && <a href={site.donateUrl} rel="noopener">Donate</a>}
+      <a href={site.registerUrl} rel="noopener">Register</a>
+      <a href="/documents/">Club Documents</a>
+    </nav>
+
+    {
+      site.social && (site.social.facebook || site.social.instagram) && (
+        <div class="footer__follow">
+          <p class="footer__follow-label">Follow Us</p>
+          <SocialLinks
+            facebook={site.social.facebook}
+            instagram={site.social.instagram}
+            class="social--on-dark"
+          />
+        </div>
+      )
+    }
+  </div>
+
+  <div class="footer__legal container">
+    <p>© {year} {site.clubName}. A volunteer-run non-profit.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-primary-dark);
+    color: rgba(255, 255, 255, 0.88);
+    margin-top: 2rem;
+  }
+  .site-footer a {
+    color: #fff;
+  }
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr auto;
+    gap: 2rem;
+    padding-block: 2.5rem;
+    align-items: start;
+  }
+  .footer__brand {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+  .footer__name {
+    font-weight: 800;
+    margin: 0 0 0.25rem;
+  }
+  .footer__line {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .footer__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-weight: 600;
+  }
+  .footer__follow-label {
+    margin: 0 0 0.6rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .footer__legal {
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    padding-block: 1.1rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  @media (max-width: 720px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

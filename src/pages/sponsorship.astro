@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SponsorGrid from '../components/SponsorGrid.astro';
+import { getEntry, render } from 'astro:content';
+
+const page = await getEntry('pages', 'sponsorship');
+if (!page) throw new Error('Missing pages/sponsorship.md');
+const { Content } = await render(page);
+
+const settings = await getEntry('settings', 'site');
+const donateUrl = settings?.data.donateUrl;
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <section class="section">
+    <div class="container prose">
+      <p class="eyebrow">Support Us</p>
+      <h1>{page.data.title}</h1>
+      <Content />
+      {
+        donateUrl && (
+          <p class="donate-cta">
+            <a class="btn btn--primary" href={donateUrl} rel="noopener">
+              Donate Now
+            </a>
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Our Sponsors</h2>
+      <p class="section__intro">
+        We're grateful to the local businesses and families who support youth
+        soccer in Ouray County.
+      </p>
+      <SponsorGrid />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 70ch;
+  }
+  .donate-cta {
+    margin-top: 1.5rem;
+  }
+</style>

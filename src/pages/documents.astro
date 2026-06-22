@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const docs = (await getCollection('documents')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// File type badge from the URL extension (ignoring any ?query string).
+const fileKind = (url: string) => {
+  const path = url.split('?')[0];
+  const ext = path.slice(path.lastIndexOf('.') + 1).toLowerCase();
+  return ext.length <= 4 ? ext.toUpperCase() : 'FILE';
+};
+
+// Preserve first-seen category order from the sorted list.
+const categories: string[] = [];
+for (const d of docs) {
+  if (!categories.includes(d.data.category)) categories.push(d.data.category);
+}
+---
+
+<BaseLayout
+  title="Club Documents"
+  description="Forms and policies for the Ouray County Soccer Club."
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Resources</p>
+      <h1>Club Documents</h1>
+      <p class="section__intro">
+        Forms and policies for players, families, and volunteers. Click any item
+        to open or download it.
+      </p>
+
+      {
+        categories.map((cat) => (
+          <div class="doc-group">
+            <h2>{cat}</h2>
+            <ul class="doc-list">
+              {docs
+                .filter((d) => d.data.category === cat)
+                .map((d) => (
+                  <li class="doc">
+                    <a class="doc__link" href={d.data.url} rel="noopener">
+                      <span class="doc__icon" aria-hidden="true">
+                        {fileKind(d.data.url)}
+                      </span>
+                      <span class="doc__title">{d.data.title}</span>
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .doc-group {
+    margin-top: 2rem;
+  }
+  .doc-group h2 {
+    font-size: 1.25rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .doc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    max-width: 640px;
+  }
+  .doc__link {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.85rem 1rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-ink);
+    font-weight: 600;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .doc__link:hover {
+    text-decoration: none;
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow);
+  }
+  .doc__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 36px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    border-radius: 6px;
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SponsorGrid from '../components/SponsorGrid.astro';
+import { getEntry } from 'astro:content';
+
+const settings = await getEntry('settings', 'site');
+if (!settings) throw new Error('Missing settings/site.yaml');
+const site = settings.data;
+
+const about = await getEntry('pages', 'about');
+const missionSummary = about?.data.summary;
+
+const donateHref = site.donateUrl || '/sponsorship/';
+---
+
+<BaseLayout>
+  <Hero
+    headline={site.heroHeadline}
+    tagline={site.tagline}
+    registerUrl={site.registerUrl}
+  />
+
+  {
+    missionSummary && (
+      <section class="section">
+        <div class="container section__intro">
+          <p class="eyebrow">Welcome</p>
+          <h2>Soccer in Ouray County</h2>
+          <p>{missionSummary}</p>
+          <a class="btn btn--solid" href="/about/">
+            About the Club
+          </a>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--alt">
+    <div class="container">
+      <p class="eyebrow">Thank You</p>
+      <h2>Our Sponsors</h2>
+      <p class="section__intro">
+        Local support keeps youth soccer affordable and growing across Ouray
+        County.
+      </p>
+      <SponsorGrid />
+      <div class="cta-row">
+        <a class="btn btn--primary" href={donateHref} rel="noopener">Donate</a>
+        <a class="btn btn--solid" href="/sponsorship/">Become a Sponsor</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+</style>
