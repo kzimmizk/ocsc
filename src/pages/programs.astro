@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry, render } from 'astro:content';
+
+const programs = await getEntry('pages', 'programs');
+if (!programs) throw new Error('Missing pages/programs.md');
+const { Content } = await render(programs);
+---
+
+<BaseLayout title={programs.data.title} description={programs.data.description}>
+  <section class="section">
+    <div class="container prose">
+      <p class="eyebrow">Play</p>
+      <h1>{programs.data.title}</h1>
+      <Content />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 70ch;
+  }
+  .prose :global(h2) {
+    margin-top: 2rem;
+  }
+</style>
