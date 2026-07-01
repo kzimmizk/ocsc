@@ -22,7 +22,6 @@ bespoke build script to maintain.
 ```
 src/content/                     defined & validated in src/content.config.ts
   settings/site.yaml   →  global config (1 file)         → data collection
-  board/*.md           →  one file per contact           → markdown collection
   sponsors/*.yaml      →  one file per sponsor            → data collection
   documents/*.yaml     →  one file per club document      → data collection
   pages/*.md           →  free-form page copy            → markdown collection
@@ -98,6 +97,22 @@ sips -s format jpeg -s formatOptions 60 /tmp/h.png --out public/hero.jpg
 schema helper + `<Image>` component for automatic resizing/format conversion
 (incl. WebP/AVIF). Clean upgrade when image weight matters.
 
+## Documents (PDFs & forms)
+
+The `documents` collection's `url` accepts **either** a full external URL **or**
+a site-relative path (validated by `linkOrPath` in `content.config.ts`). This
+lets club documents be **self-hosted** instead of depending on an external host:
+
+- Put the served file in `public/documents/` → reference it as
+  `/documents/foo.pdf` in the document's YAML `url`.
+- Keep the master/original in `assets/documents/` (not used by the build), same
+  `assets/` = originals, `public/` = served split as images.
+
+The file-type badge on the documents page is derived from the URL extension, so
+`/documents/foo.pdf` renders a `PDF` badge automatically. Legacy entries still
+point at external `img1.wsimg.com` links; migrate them to self-hosted as the raw
+files become available.
+
 ## Adding the Sveltia CMS later
 
 Sveltia (a modern, drop-in replacement for Decap/Netlify CMS) reads Decap's
@@ -106,7 +121,7 @@ config format. To enable it:
 1. Add `public/admin/index.html` loading the Sveltia CMS script.
 2. Add `public/admin/config.yml` describing collections that mirror
    `content.config.ts` (a `file` collection for `settings/site.yaml`; `folder`
-   collections for `board/`, `sponsors/`, `documents/`, `pages/`).
+   collections for `sponsors/`, `documents/`, `pages/`).
 3. Set up GitHub OAuth (a small auth handler — Netlify's git-gateway or a hosted
    OAuth proxy) so editors log in with GitHub.
 

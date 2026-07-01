@@ -1,45 +1,50 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BoardCard from '../components/BoardCard.astro';
-import { getCollection, render } from 'astro:content';
+import SocialLinks from '../components/SocialLinks.astro';
+import { getEntry } from 'astro:content';
 
-const members = (await getCollection('board')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-
-// Pre-render each member's optional markdown bio.
-const cards = await Promise.all(
-  members.map(async (m) => ({
-    data: m.data,
-    Content: (await render(m)).Content,
-  })),
-);
+const settings = await getEntry('settings', 'site');
+if (!settings) throw new Error('Missing settings/site.yaml');
+const site = settings.data;
 ---
 
 <BaseLayout
   title="Contacts"
-  description="Meet the board and staff of the Ouray County Soccer Club."
+  description="Get in touch with the Ouray County Soccer Club."
 >
   <section class="section">
     <div class="container">
       <p class="eyebrow">Get in Touch</p>
-      <h1>Contacts</h1>
+      <h1>Contact Us</h1>
       <p class="section__intro">
-        Our board and staff are volunteers. Reach out with questions about
-        registration, sponsorship, or coaching.
+        The club is run by volunteers. For questions about registration,
+        sponsorship, or coaching, send us an email and we'll get back to you.
       </p>
-      <div class="grid">
+
+      <div class="contact-card">
+        <p class="contact-card__club">{site.clubName}</p>
         {
-          cards.map(({ data, Content }) => (
-            <BoardCard
-              name={data.name}
-              role={data.role}
-              email={data.email}
-              photo={data.photo}
-            >
-              <Content />
-            </BoardCard>
-          ))
+          site.contactEmail && (
+            <a class="contact-card__email" href={`mailto:${site.contactEmail}`}>
+              {site.contactEmail}
+            </a>
+          )
+        }
+        {site.location && <p class="contact-card__line">{site.location}</p>}
+        {
+          site.mailingAddress && (
+            <p class="contact-card__line">{site.mailingAddress}</p>
+          )
+        }
+        {
+          site.social && (site.social.facebook || site.social.instagram) && (
+            <div class="contact-card__social">
+              <SocialLinks
+                facebook={site.social.facebook}
+                instagram={site.social.instagram}
+              />
+            </div>
+          )
         }
       </div>
     </div>
@@ -47,9 +52,30 @@ const cards = await Promise.all(
 </BaseLayout>
 
 <style>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.5rem;
+  .contact-card {
+    margin-top: 1.5rem;
+    max-width: 480px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.75rem;
+  }
+  .contact-card__club {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+  .contact-card__email {
+    font-size: 1.05rem;
+    font-weight: 600;
+    word-break: break-word;
+  }
+  .contact-card__line {
+    margin: 0.5rem 0 0;
+    color: var(--color-muted);
+  }
+  .contact-card__social {
+    margin-top: 1rem;
   }
 </style>

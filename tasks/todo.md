@@ -1,23 +1,25 @@
 # OCSC Website — TODO
 
-POC is **feature-complete and ready for user feedback** (June 2026).
+POC is **feature-complete and ready for user feedback** (July 2026).
 Build + smoke test + type check all green.
 
 ## Done
 - Astro + Netlify config (`netlify.toml`, Node 22); content collections + schemas
-- Pages: Home, About, Contacts, Sponsorship & Donations, Documents
+- Pages: Home, About, Programs, Contacts, Sponsorship & Donations, Documents
 - Register (PlayMetrics) + Donate (Zeffy) wired in header/footer/pages
 - 8 sponsors with logos + website links (home + sponsorship grids)
-- 6 board members (Contacts) from content files
+- Contacts page = single club email (`contactEmail` in `site.yaml`)
 - Club crest logo + favicon/icons; brand colors sampled from crest
 - Hero photo (cropped from `kids_playing.webp`) with navy overlay
 - Social icons (FB + Instagram) in header + footer
-- 5 club documents → `/documents/` page (nav + footer linked)
+- Club documents → `/documents/` page (nav + footer linked); 4 self-hosted in
+  `public/documents/` (Bylaws, Code of Conduct, Photo + Medical Release)
 - Responsive: hamburger nav ≤960px, 2-up sponsor grid ≤600px
 - Docs: README, AGENTS.md, CONTENT.md (editors), ARCHITECTURE.md (devs)
 
 ## Outstanding
-- [ ] **Board emails** → fill `email:` in `src/content/board/*.md` (only content gap)
+- [ ] Add the new **Fee Disclosure** PDF to `public/documents/` when ready (old
+      external one was removed) + a `documents/*.yaml` pointing at `/documents/…`
 - [ ] Decide final hero headline copy (currently the plain club name)
 
 ## Deploy
@@ -27,7 +29,7 @@ Build + smoke test + type check all green.
 
 ## Later (post-POC)
 - [ ] Team schedules / results / standings
-- [ ] More pages (programs, age groups, handbook, volunteer)
+- [ ] More pages (age groups, handbook, volunteer)
 - [ ] Sveltia CMS visual editor at `/admin` (see ARCHITECTURE.md)
 - [ ] Image optimization via `src/assets/` + `<Image>`
 - [ ] Promote to production domain, retire old site

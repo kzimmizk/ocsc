@@ -78,31 +78,21 @@ Donations** page. Each sponsor is two things: a **logo image** and a small
 
 ---
 
-## 3. Edit a Contact / board member
+## 3. Change the contact email
 
-**Folder:** `src/content/board/` — one file per person.
+The **Contacts** page shows a single club email — there is no per-person board
+roster to maintain. The email comes from the `contactEmail` field in
+`src/content/settings/site.yaml` (the same value used in the footer).
 
-Open a person's file (e.g. `andrew-burke.md`). The top section (between the
-`---` lines) holds their details:
+To change it, edit that one line:
 
-```markdown
----
-name: "Andrew Burke"
-role: "President & Interim Director of Coaching"
-email: "andrew@example.com"     # add the email here
-order: 1                        # controls display order
-photo: "andrew-burke.jpg"       # optional; see below
----
-
-Optional short bio goes here, below the second line of dashes.
+```yaml
+contactEmail: "admin@ouraycountysoccer.org"
 ```
 
-- **Add an email:** put it inside the quotes on the `email:` line.
-- **Add a photo:** upload the image to `public/board/`, then set
-  `photo: "thefilename.jpg"`. If there's no photo, the person's initials show
-  in a colored circle.
-- **Add a new person:** copy an existing file, rename it, update the fields.
-- **Remove someone:** delete their file.
+The mailing address and location shown on the Contacts page also come from
+`site.yaml` (`mailingAddress`, `location`). Leave any of these as `""` to hide
+it.
 
 ---
 
@@ -121,17 +111,23 @@ normal document and commit.
 These appear on the **Documents** page (linked in the top menu and the footer).
 Each document is one small file in `src/content/documents/`.
 
-**To add a document:**
+**To add a document**, you need two things: the file's link, and a small info
+file. The link can be **either**:
 
-1. Get a link to the file (e.g. the URL of a PDF already hosted online).
-2. Create a file in `src/content/documents/`, e.g. `registration-form.yaml`:
+- **A file you upload to this site (recommended).** Put the PDF in the
+  `public/documents/` folder (on GitHub: open `public/documents` → **Add file →
+  Upload files**), then use its path as the link, e.g. `/documents/bylaws.pdf`.
+- **A link to a file already hosted online**, e.g.
+  `https://example.com/registration-form.pdf`.
 
-   ```yaml
-   title: "Registration Form"
-   url: "https://example.com/registration-form.pdf"
-   category: "Forms"   # section heading on the page (e.g. Forms, Policies)
-   order: 1            # lower numbers show first
-   ```
+Then create a file in `src/content/documents/`, e.g. `registration-form.yaml`:
+
+```yaml
+title: "Registration Form"
+url: "/documents/registration-form.pdf"   # uploaded file …or a full https:// link
+category: "Forms"   # section heading on the page (e.g. Forms, Policies)
+order: 1            # lower numbers show first
+```
 
 The page groups documents by `category` and shows a PDF/DOCX badge based on the
 link. To remove a document, delete its file.

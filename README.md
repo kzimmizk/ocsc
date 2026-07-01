@@ -19,7 +19,8 @@ This is the proof-of-concept that will eventually replace **ouraysoccerclub.com*
 | ----------------------- | --------------- | ---------------------------------- |
 | Home                    | `/`             | `src/pages/index.astro`            |
 | About                   | `/about/`       | `src/content/pages/about.md`       |
-| Contacts                | `/contacts/`    | `src/content/board/*.md`           |
+| Programs                | `/programs/`    | `src/content/pages/programs.md`    |
+| Contacts                | `/contacts/`    | `contactEmail` in `site.yaml`      |
 | Sponsorship & Donations | `/sponsorship/` | `src/content/pages/sponsorship.md` |
 | Documents               | `/documents/`   | `src/content/documents/*.yaml`     |
 | Register                | external link   | `registerUrl` in `site.yaml`       |
@@ -51,7 +52,6 @@ npm run check      # TypeScript / Astro diagnostics
 src/
   content/          # ← editable content (see docs/CONTENT.md)
     settings/site.yaml
-    board/*.md
     sponsors/*.yaml
     documents/*.yaml
     pages/*.md
@@ -75,5 +75,5 @@ scripts/            # smoke-test.mjs
 
 ## Status / TODO
 
-See [`tasks/todo.md`](tasks/todo.md) for outstanding items (board emails,
-deploy, future schedules/results, optional Sveltia CMS).
+See [`tasks/todo.md`](tasks/todo.md) for outstanding items (self-hosted document
+PDFs, deploy, future schedules/results, optional Sveltia CMS).

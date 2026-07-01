@@ -10,6 +10,15 @@ const optionalEmail = z.preprocess(
   z.string().email().optional(),
 );
 
+// A document link is either a full external URL ("https://…/foo.pdf") or a
+// site-relative path to a self-hosted file in public/ ("/documents/foo.pdf").
+const linkOrPath = z
+  .string()
+  .refine(
+    (v) => v.startsWith('/') || z.string().url().safeParse(v).success,
+    { message: 'Must be a full URL (https://…) or a site path starting with "/"' },
+  );
+
 /**
  * Content collections = the editable "data" of the site.
  *
@@ -40,20 +49,6 @@ const settings = defineCollection({
         instagram: optionalUrl,
       })
       .optional(),
-  }),
-});
-
-// Board / contacts — one markdown file per person in src/content/board/
-const board = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/board' }),
-  schema: z.object({
-    name: z.string(),
-    role: z.string(),
-    email: optionalEmail,
-    // Filename of a photo placed in public/board/ (optional).
-    photo: z.string().optional(),
-    // Lower numbers sort first.
-    order: z.number().default(99),
   }),
 });
 
@@ -88,11 +83,12 @@ const documents = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/documents' }),
   schema: z.object({
     title: z.string(),
-    url: z.string().url(),
+    // Full URL ("https://…/foo.pdf") or a self-hosted path ("/documents/foo.pdf").
+    url: linkOrPath,
     // Optional grouping label shown as a section heading on the documents page.
     category: z.string().default('Forms & Policies'),
     order: z.number().default(99),
   }),
 });
 
-export const collections = { settings, board, sponsors, pages, documents };
+export const collections = { settings, sponsors, pages, documents };

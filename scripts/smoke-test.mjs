@@ -10,9 +10,10 @@ const DIST = 'dist';
 const checks = [
   { file: 'index.html', mustInclude: ['Register', 'Our Sponsors', 'Alpine Bank'] },
   { file: 'about/index.html', mustInclude: ['Our Mission'] },
-  { file: 'contacts/index.html', mustInclude: ['Andrew Burke', 'Judith Giron'] },
+  { file: 'programs/index.html', mustInclude: ['Program Overview', 'PreK/K', 'Mountain Region League'] },
+  { file: 'contacts/index.html', mustInclude: ['Contact Us', 'admin@ouraycountysoccer.org'] },
   { file: 'sponsorship/index.html', mustInclude: ['Our Sponsors', 'zeffy.com'] },
-  { file: 'documents/index.html', mustInclude: ['Medical Release Form', 'Disciplinary Policy'] },
+  { file: 'documents/index.html', mustInclude: ['Bylaws of the Ouray County Soccer Club', '/documents/bylaws.pdf', 'Medical Release Form', 'Code of Conduct'] },
 ];
 
 let failures = 0;

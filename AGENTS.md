@@ -18,7 +18,7 @@ build regenerates the HTML/CSS. **Do not hardcode content into components** — 
 or extend a content collection instead, and keep the schema as the source of
 truth. See `docs/CONTENT.md` (the editor guide) and `docs/ARCHITECTURE.md`.
 
-Collections: `settings` (1 file), `board`, `sponsors`, `documents`, `pages`.
+Collections: `settings` (1 file), `sponsors`, `documents`, `pages`.
 
 ## Commands
 
@@ -52,14 +52,19 @@ npm run check    # astro check (types) — keep at 0 errors
   to PNG first, then crop/resize, then export (JPEG for photos). Recipes are in
   `docs/ARCHITECTURE.md` → Images.
 
-## State of play (June 2026)
+## State of play (July 2026)
 
-- Done: all pages (Home/About/Contacts/Sponsorship/Documents), 8 sponsors w/ links,
-  hero photo, socials (header + footer), Zeffy donate link, brand logo + colors,
-  responsive nav.
-- **Outstanding:** board member emails (blank in `src/content/board/*.md`); deploy
-  to Netlify; hero headline copy is the plain club name (intentional — earlier
-  placeholder marketing copy was removed). See `tasks/todo.md`.
+- Done: all pages (Home/About/Programs/Contacts/Sponsorship/Documents), 8 sponsors
+  w/ links, hero photo, socials (header + footer), Zeffy donate link, brand logo +
+  colors, responsive nav. Contacts is a single club email (`contactEmail` in
+  `site.yaml`), not a board roster. Club documents are **self-hosted** PDFs in
+  `public/documents/` (Bylaws, Code of Conduct, Photo + Medical Release), linked by
+  root-relative path — the `documents` schema's `url` accepts a full URL **or** a
+  `/…` site path (`linkOrPath` in `content.config.ts`).
+- **Outstanding:** add the new **Fee Disclosure** PDF when ready (the old external
+  one was removed); deploy to Netlify; hero headline copy is the plain club name
+  (intentional — earlier placeholder marketing copy was removed). See
+  `tasks/todo.md`.
 - **Not yet a git repo.** Owner plans to move it into one and connect Netlify.
   When that happens: `git init`, ensure `.gitignore` is respected, push, import in
   Netlify (it auto-reads `netlify.toml`).
