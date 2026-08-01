@@ -2,10 +2,19 @@
 // contain key content. Run after `astro build` via `npm run verify`.
 // Exits non-zero on failure so CI / Netlify can catch regressions.
 
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const DIST = 'dist';
+
+const assertBuiltAsset = async (assetPath, source) => {
+  try {
+    await access(join(DIST, assetPath.replace(/^\//, '')));
+  } catch {
+    console.error(`✗ ${source} references missing asset: "${assetPath}"`);
+    failures++;
+  }
+};
 
 const checks = [
   { file: 'index.html', mustInclude: ['Register', 'Our Sponsors', 'Alpine Bank'] },
@@ -46,6 +55,32 @@ if (!home.includes('playmetrics.com/signup')) {
   failures++;
 } else {
   console.log('✓ register link present');
+}
+
+// Content schemas validate value shapes, but cannot prove that a referenced
+// file exists in public/. Check all local document and sponsor assets here.
+for (const file of await readdir('src/content/documents')) {
+  const yaml = await readFile(join('src/content/documents', file), 'utf8');
+  const match = yaml.match(/^url:\s*["']?(\/[^"'\s]+)["']?/m);
+  if (match) await assertBuiltAsset(match[1], `documents/${file}`);
+}
+
+for (const file of await readdir('src/content/sponsors')) {
+  const yaml = await readFile(join('src/content/sponsors', file), 'utf8');
+  const match = yaml.match(/^logo:\s*["']?([^"'\s]+)["']?/m);
+  if (match) {
+    await assertBuiltAsset(`/sponsors/${match[1]}`, `sponsors/${file}`);
+  }
+}
+
+for (const asset of [
+  '/apple-touch-icon.png',
+  '/favicon.png',
+  '/hero.jpg',
+  '/logo.png',
+  '/logo.webp',
+]) {
+  await assertBuiltAsset(asset, 'site shell');
 }
 
 if (failures > 0) {

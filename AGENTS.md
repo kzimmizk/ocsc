@@ -65,9 +65,11 @@ npm run check    # astro check (types) — keep at 0 errors
   one was removed); deploy to Netlify; hero headline copy is the plain club name
   (intentional — earlier placeholder marketing copy was removed). See
   `tasks/todo.md`.
-- **Not yet a git repo.** Owner plans to move it into one and connect Netlify.
-  When that happens: `git init`, ensure `.gitignore` is respected, push, import in
-  Netlify (it auto-reads `netlify.toml`).
+- **GitHub:** hosted at `kzimmizk/ocsc`. Work on a branch and open a pull request;
+  GitHub Actions runs the type, build, and smoke checks.
+- **Deployment:** connect the repository to Netlify if it is not already
+  connected. Netlify auto-reads `netlify.toml`; pull requests should receive
+  deploy previews once continuous deployment is enabled.
 
 ## Roadmap (post-POC)
 

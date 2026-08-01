@@ -109,9 +109,9 @@ lets club documents be **self-hosted** instead of depending on an external host:
   `assets/` = originals, `public/` = served split as images.
 
 The file-type badge on the documents page is derived from the URL extension, so
-`/documents/foo.pdf` renders a `PDF` badge automatically. Legacy entries still
-point at external `img1.wsimg.com` links; migrate them to self-hosted as the raw
-files become available.
+`/documents/foo.pdf` renders a `PDF` badge automatically. All current club
+documents are self-hosted. `npm run verify` also confirms that locally referenced
+document and sponsor files exist in the production build.
 
 ## Adding the Sveltia CMS later
 
