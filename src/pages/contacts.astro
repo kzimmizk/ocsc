@@ -17,65 +17,94 @@ const site = settings.data;
       <p class="eyebrow">Get in Touch</p>
       <h1>Contact Us</h1>
       <p class="section__intro">
-        The club is run by volunteers. For questions about registration,
-        sponsorship, or coaching, send us an email and we'll get back to you.
+        The club is run by volunteers. Choose the contact that best matches your
+        question so we can get you to the right person.
       </p>
 
-      <div class="contact-card">
-        <p class="contact-card__club">{site.clubName}</p>
+      <div class="contact-grid">
         {
-          site.contactEmail && (
-            <a class="contact-card__email" href={`mailto:${site.contactEmail}`}>
-              {site.contactEmail}
-            </a>
-          )
+          site.contacts.map((contact) => (
+            <article class="contact-card">
+              <h2 class="contact-card__role">{contact.role}</h2>
+              {contact.name && <p class="contact-card__name">{contact.name}</p>}
+              <p class="contact-card__description">{contact.description}</p>
+              <a class="contact-card__email" href={`mailto:${contact.email}`}>
+                {contact.email}
+              </a>
+            </article>
+          ))
         }
-        {site.location && <p class="contact-card__line">{site.location}</p>}
-        {
-          site.mailingAddress && (
-            <p class="contact-card__line">{site.mailingAddress}</p>
-          )
-        }
-        {
-          site.social && (site.social.facebook || site.social.instagram) && (
-            <div class="contact-card__social">
-              <SocialLinks
-                facebook={site.social.facebook}
-                instagram={site.social.instagram}
-              />
-            </div>
-          )
-        }
+      </div>
+
+      <div class="club-details">
+        <div>
+          <p class="contact-card__club">{site.clubName}</p>
+          {site.location && <p class="contact-card__line">{site.location}</p>}
+          {site.mailingAddress && <p class="contact-card__line">{site.mailingAddress}</p>}
+        </div>
+        {site.social && (site.social.facebook || site.social.instagram) && (
+          <SocialLinks facebook={site.social.facebook} instagram={site.social.instagram} />
+        )}
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .contact-card {
+  .contact-grid {
     margin-top: 1.5rem;
-    max-width: 480px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .contact-card {
     background: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     padding: 1.75rem;
   }
-  .contact-card__club {
-    margin: 0 0 0.5rem;
-    font-size: 1.2rem;
+  .contact-card__role {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  .contact-card__name {
+    margin: 0.2rem 0 0;
     font-weight: 800;
+  }
+  .contact-card__description {
+    color: var(--color-muted);
+    margin: 0.75rem 0 1rem;
   }
   .contact-card__email {
     font-size: 1.05rem;
     font-weight: 600;
     word-break: break-word;
   }
+  .club-details {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .contact-card__club {
+    margin: 0 0 0.25rem;
+    font-weight: 800;
+  }
   .contact-card__line {
-    margin: 0.5rem 0 0;
+    margin: 0.2rem 0 0;
     color: var(--color-muted);
   }
-  .contact-card__social {
-    margin-top: 1rem;
+  @media (max-width: 680px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    .club-details {
+      align-items: flex-start;
+      flex-direction: column;
+    }
   }
 </style>

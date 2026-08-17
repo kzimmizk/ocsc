@@ -3,9 +3,10 @@ interface Props {
   headline: string;
   tagline: string;
   registerUrl: string;
+  registrationOpen: boolean;
 }
 
-const { headline, tagline, registerUrl } = Astro.props;
+const { headline, tagline, registerUrl, registrationOpen } = Astro.props;
 ---
 
 <section class="hero">
@@ -13,7 +14,7 @@ const { headline, tagline, registerUrl } = Astro.props;
     <p class="hero__tagline">{tagline}</p>
     <h1 class="hero__headline">{headline}</h1>
     <div class="hero__actions">
-      <a class="btn btn--primary" href={registerUrl} rel="noopener">Register Now</a>
+      {registrationOpen && <a class="btn btn--primary" href={registerUrl} rel="noopener">Register Now</a>}
       <a class="btn btn--ghost" href="/about/">Learn More</a>
     </div>
   </div>
