@@ -23,9 +23,14 @@ Build + smoke test + type check all green.
 - [ ] Decide final hero headline copy (currently the plain club name)
 
 ## Deploy
-- [ ] Create GitHub repo, push
-- [ ] Connect Netlify to repo (auto-detects `netlify.toml`)
+- [x] Create GitHub repo and push (`kzimmizk/ocsc`)
+- [ ] Connect Netlify to repo if needed (auto-detects `netlify.toml`)
 - [ ] Confirm deploy-on-push works
+- [ ] Confirm pull-request deploy previews work
+
+## Quality follow-up
+- [ ] Repair the clipped authorization text in the fillable Photo Release PDF
+- [ ] Consider condensing the mostly empty second page of the Medical Release PDF
 
 ## Later (post-POC)
 - [ ] Team schedules / results / standings

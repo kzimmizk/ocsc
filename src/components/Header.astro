@@ -36,36 +36,67 @@ const isActive = (href: string) =>
         class="header__social"
       />
 
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
-      <label for="nav-toggle" class="nav-toggle__btn" aria-label="Toggle menu">
+      <button
+        type="button"
+        class="nav-toggle__btn"
+        aria-label="Toggle menu"
+        aria-controls="primary-navigation"
+        aria-expanded="false"
+      >
         <span></span><span></span><span></span>
-      </label>
+      </button>
 
-      <nav class="nav" aria-label="Primary">
-      <ul class="nav__list">
-        {
-          nav.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                class:list={['nav__link', { 'is-active': isActive(item.href) }]}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-        <li>
-          <a class="btn btn--primary nav__cta" href={site.registerUrl} rel="noopener">
-            Register
-          </a>
-        </li>
-      </ul>
-    </nav>
+      <nav id="primary-navigation" class="nav" aria-label="Primary">
+        <ul class="nav__list">
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={['nav__link', { 'is-active': isActive(item.href) }]}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a class="btn btn--primary nav__cta" href={site.registerUrl} rel="noopener">
+              Register
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle__btn');
+  const menu = document.querySelector<HTMLElement>('#primary-navigation');
+
+  const setMenuOpen = (open: boolean) => {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    menu.classList.toggle('is-open', open);
+  };
+
+  toggle?.addEventListener('click', () => {
+    setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  menu?.addEventListener('click', (event) => {
+    if ((event.target as Element).closest('a')) setMenuOpen(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setMenuOpen(false);
+      toggle?.focus();
+    }
+  });
+</script>
 
 <style>
   .site-header {
@@ -133,6 +164,9 @@ const isActive = (href: string) =>
     gap: 5px;
     padding: 10px 6px;
     cursor: pointer;
+    list-style: none;
+    border: 0;
+    background: transparent;
   }
   .nav-toggle__btn span {
     width: 26px;
@@ -158,7 +192,7 @@ const isActive = (href: string) =>
       max-height: calc(100vh - var(--header-height));
       overflow-y: auto;
     }
-    .nav-toggle:checked ~ .nav {
+    .nav.is-open {
       display: block;
     }
     .nav__list {
@@ -192,13 +226,13 @@ const isActive = (href: string) =>
     }
 
     /* Animate hamburger into an X when the menu is open. */
-    .nav-toggle:checked ~ .nav-toggle__btn span:nth-child(1) {
+    .nav-toggle__btn[aria-expanded='true'] span:nth-child(1) {
       transform: translateY(8px) rotate(45deg);
     }
-    .nav-toggle:checked ~ .nav-toggle__btn span:nth-child(2) {
+    .nav-toggle__btn[aria-expanded='true'] span:nth-child(2) {
       opacity: 0;
     }
-    .nav-toggle:checked ~ .nav-toggle__btn span:nth-child(3) {
+    .nav-toggle__btn[aria-expanded='true'] span:nth-child(3) {
       transform: translateY(-8px) rotate(-45deg);
     }
   }

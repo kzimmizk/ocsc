@@ -7,7 +7,8 @@ interface Props {
 }
 
 const { site } = Astro.props;
-const year = 2026;
+const year = new Date().getFullYear();
+const donateHref = site.donateUrl || '/sponsorship/';
 ---
 
 <footer class="site-footer">
@@ -32,7 +33,7 @@ const year = 2026;
       <a href="/programs/">Programs</a>
       <a href="/contacts/">Contacts</a>
       <a href="/sponsorship/">Sponsorship &amp; Donations</a>
-      {site.donateUrl && <a href={site.donateUrl} rel="noopener">Donate</a>}
+      <a href={donateHref} rel="noopener">Donate</a>
       <a href={site.registerUrl} rel="noopener">Register</a>
       <a href="/documents/">Club Documents</a>
     </nav>
