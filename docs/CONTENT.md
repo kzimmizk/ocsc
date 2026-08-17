@@ -39,6 +39,7 @@ This one file controls site-wide things:
 | `registerUrl`  | Where the **Register** buttons go when registration is open               |
 | `donateUrl`    | The **Donate** button link (Zeffy). Blank → points at the Sponsorship page |
 | `contactEmail` | Club email shown in the footer (blank = hidden)                           |
+| `ein`          | Federal tax ID shown in the footer, formatted as `XX-XXXXXXX`              |
 | `social`       | Facebook / Instagram links (icons in the header + footer)                 |
 
 Just change the text inside the quotes. Leave a value as `""` (empty quotes) to

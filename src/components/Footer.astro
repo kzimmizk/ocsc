@@ -53,7 +53,9 @@ const donateHref = site.donateUrl || '/sponsorship/';
   </div>
 
   <div class="footer__legal container">
-    <p>© {year} {site.clubName}. A volunteer-run non-profit.</p>
+    <p>
+      © {year} {site.clubName}. A volunteer-run 501(c)(3) nonprofit{site.ein && <> · EIN {site.ein}</>}.
+    </p>
   </div>
 </footer>
 

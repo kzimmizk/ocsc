@@ -49,6 +49,8 @@ contacts:
     description: "For general questions, registration support, or anything that does not fit the categories above."
 location: "Ridgway, Colorado"
 mailingAddress: "PO Box 715, Ridgway, CO 81432"
+# Federal Employer Identification Number, shown in the footer.
+ein: "84-3830172"
 
 social:
   facebook: "https://www.facebook.com/OurayCountySoccerClub/"

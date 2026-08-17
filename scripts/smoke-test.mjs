@@ -17,7 +17,7 @@ const assertBuiltAsset = async (assetPath, source) => {
 };
 
 const checks = [
-  { file: 'index.html', mustInclude: ['Learn More', 'Our Sponsors', 'Alpine Bank'] },
+  { file: 'index.html', mustInclude: ['Learn More', 'Our Sponsors', 'Alpine Bank', '501(c)(3) nonprofit', 'EIN 84-3830172'] },
   { file: 'about/index.html', mustInclude: ['Our Mission'] },
   { file: 'programs/index.html', mustInclude: ['Program Overview', 'PreK/K', 'Mountain Region League'] },
   { file: 'contacts/index.html', mustInclude: ['Contact Us', 'President', 'president@ouraycountysoccer.org', 'Director of Coaching (Interim)', 'doc@ouraycountysoccer.org', 'admin@ouraycountysoccer.org'] },
