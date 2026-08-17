@@ -52,6 +52,7 @@ const settings = defineCollection({
     ),
     location: z.string().optional(),
     mailingAddress: z.string().optional(),
+    ein: z.string().regex(/^\d{2}-\d{7}$/, 'Must use EIN format XX-XXXXXXX').optional(),
     social: z
       .object({
         facebook: optionalUrl,
