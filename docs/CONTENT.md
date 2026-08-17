@@ -35,7 +35,8 @@ This one file controls site-wide things:
 | -------------- | ------------------------------------------------------------------------- |
 | `heroHeadline` | The big headline on the home-page hero                                    |
 | `tagline`      | Short kicker shown above the headline (also the default page description) |
-| `registerUrl`  | Where the **Register** button goes (PlayMetrics link)                     |
+| `registrationOpen` | `true` shows Register buttons site-wide; `false` hides them          |
+| `registerUrl`  | Where the **Register** buttons go when registration is open               |
 | `donateUrl`    | The **Donate** button link (Zeffy). Blank → points at the Sponsorship page |
 | `contactEmail` | Club email shown in the footer (blank = hidden)                           |
 | `social`       | Facebook / Instagram links (icons in the header + footer)                 |
@@ -78,11 +79,11 @@ Donations** page. Each sponsor is two things: a **logo image** and a small
 
 ---
 
-## 3. Change the contact email
+## 3. Edit the contact directory
 
-The **Contacts** page shows a single club email — there is no per-person board
-roster to maintain. The email comes from the `contactEmail` field in
-`src/content/settings/site.yaml` (the same value used in the footer).
+The **Contacts** page lists role-specific contacts from the `contacts` section
+of `src/content/settings/site.yaml`. Each entry has a role, optional name,
+email, and short description. Add, remove, reorder, or edit entries there.
 
 To change it, edit that one line:
 
@@ -90,9 +91,8 @@ To change it, edit that one line:
 contactEmail: "admin@ouraycountysoccer.org"
 ```
 
-The mailing address and location shown on the Contacts page also come from
-`site.yaml` (`mailingAddress`, `location`). Leave any of these as `""` to hide
-it.
+The `contactEmail` field remains the general email shown in the footer. The
+mailing address and location also come from `site.yaml`.
 
 ---
 

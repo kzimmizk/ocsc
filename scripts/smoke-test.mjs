@@ -17,10 +17,10 @@ const assertBuiltAsset = async (assetPath, source) => {
 };
 
 const checks = [
-  { file: 'index.html', mustInclude: ['Register', 'Our Sponsors', 'Alpine Bank'] },
+  { file: 'index.html', mustInclude: ['Learn More', 'Our Sponsors', 'Alpine Bank'] },
   { file: 'about/index.html', mustInclude: ['Our Mission'] },
   { file: 'programs/index.html', mustInclude: ['Program Overview', 'PreK/K', 'Mountain Region League'] },
-  { file: 'contacts/index.html', mustInclude: ['Contact Us', 'admin@ouraycountysoccer.org'] },
+  { file: 'contacts/index.html', mustInclude: ['Contact Us', 'President', 'president@ouraycountysoccer.org', 'Director of Coaching (Interim)', 'doc@ouraycountysoccer.org', 'admin@ouraycountysoccer.org'] },
   { file: 'sponsorship/index.html', mustInclude: ['Our Sponsors', 'zeffy.com'] },
   { file: 'documents/index.html', mustInclude: ['Bylaws of the Ouray County Soccer Club', '/documents/bylaws.pdf', 'Medical Release Form', 'Code of Conduct'] },
 ];
@@ -48,13 +48,13 @@ for (const { file, mustInclude } of checks) {
   }
 }
 
-// The Register link must point at the PlayMetrics signup URL.
+// Registration is closed, so no PlayMetrics CTA should be rendered.
 const home = await readFile(join(DIST, 'index.html'), 'utf8');
-if (!home.includes('playmetrics.com/signup')) {
-  console.error('✗ index.html is missing the PlayMetrics register link');
+if (home.includes('playmetrics.com/signup')) {
+  console.error('✗ index.html includes the PlayMetrics link while registration is closed');
   failures++;
 } else {
-  console.log('✓ register link present');
+  console.log('✓ registration link hidden');
 }
 
 // Content schemas validate value shapes, but cannot prove that a referenced

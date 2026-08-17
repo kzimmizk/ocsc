@@ -38,9 +38,18 @@ const settings = defineCollection({
     shortName: z.string().optional(),
     heroHeadline: z.string(),
     tagline: z.string(),
+    registrationOpen: z.boolean().default(false),
     registerUrl: z.string().url(),
     donateUrl: optionalUrl,
     contactEmail: optionalEmail,
+    contacts: z.array(
+      z.object({
+        role: z.string(),
+        name: z.string().optional(),
+        email: z.string().email(),
+        description: z.string(),
+      }),
+    ),
     location: z.string().optional(),
     mailingAddress: z.string().optional(),
     social: z

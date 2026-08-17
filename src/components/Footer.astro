@@ -34,7 +34,7 @@ const donateHref = site.donateUrl || '/sponsorship/';
       <a href="/contacts/">Contacts</a>
       <a href="/sponsorship/">Sponsorship &amp; Donations</a>
       <a href={donateHref} rel="noopener">Donate</a>
-      <a href={site.registerUrl} rel="noopener">Register</a>
+      {site.registrationOpen && <a href={site.registerUrl} rel="noopener">Register</a>}
       <a href="/documents/">Club Documents</a>
     </nav>
 

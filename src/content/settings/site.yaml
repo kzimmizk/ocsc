@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Site-wide settings. Edit these values to update the header, footer, and the
-# Register / Donate buttons everywhere they appear. After saving, the site
+# registration, Register / Donate buttons everywhere they appear. After saving, the site
 # rebuilds automatically on the next deploy.
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -12,7 +12,10 @@ heroHeadline: "Ouray County Soccer Club"
 # Short tagline shown above the headline (also used as the default meta description).
 tagline: "Youth soccer in the heart of the San Juans."
 
-# The "Register" button links here (PlayMetrics signup).
+# Set to true when registration opens to show Register buttons site-wide.
+registrationOpen: false
+
+# The "Register" button links here (PlayMetrics signup) when registration is open.
 registerUrl: "https://playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0yNjE0LTE3ODY3NTA4MTZ8Um5nTkp2VXgzUEo0aG9pN2grZGRlVVFRR0dFVnFXWDdyYlVDZGNPcm1uYz0="
 
 # Optional: a direct donate link. Leave blank to point the Donate button at the
@@ -20,6 +23,30 @@ registerUrl: "https://playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0yNjE0L
 donateUrl: "https://www.zeffy.com/en-US/donation-form/ocsc-donation"
 
 contactEmail: "admin@ouraycountysoccer.org"
+contacts:
+  - role: "President"
+    name: "Andrew Burke"
+    email: "president@ouraycountysoccer.org"
+    description: "For questions about club vision, community partnerships, and general club direction."
+  - role: "Director of Coaching (Interim)"
+    name: "Andrew Burke"
+    email: "doc@ouraycountysoccer.org"
+    description: "For questions about coaching, player development, tryouts, and other soccer program and technical matters."
+  - role: "Executive Director"
+    name: "Judith Giron"
+    email: "executivedirector@ouraycountysoccer.org"
+    description: "For questions about board operations, club policies, and organizational matters."
+  - role: "Treasurer"
+    name: "Michael Leonardi"
+    email: "treasurer@ouraycountysoccer.org"
+    description: "For questions about registration fees, financial assistance, reimbursements, and sponsorships."
+  - role: "Secretary"
+    name: "Brian Patton"
+    email: "secretary@ouraycountysoccer.org"
+    description: "For questions about club documents, bylaws, and meeting records."
+  - role: "General Inquiries and Registration"
+    email: "admin@ouraycountysoccer.org"
+    description: "For general questions, registration support, or anything that does not fit the categories above."
 location: "Ridgway, Colorado"
 mailingAddress: "PO Box 715, Ridgway, CO 81432"
 

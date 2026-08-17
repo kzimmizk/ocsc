@@ -61,11 +61,15 @@ const isActive = (href: string) =>
               </li>
             ))
           }
-          <li>
-            <a class="btn btn--primary nav__cta" href={site.registerUrl} rel="noopener">
-              Register
-            </a>
-          </li>
+          {
+            site.registrationOpen && (
+              <li>
+                <a class="btn btn--primary nav__cta" href={site.registerUrl} rel="noopener">
+                  Register
+                </a>
+              </li>
+            )
+          }
         </ul>
       </nav>
     </div>
