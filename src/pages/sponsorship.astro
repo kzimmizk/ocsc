@@ -12,18 +12,41 @@ const donateUrl = settings?.data.donateUrl;
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
-  <section class="section">
-    <div class="container prose">
-      <p class="eyebrow">Support Us</p>
-      <h1>{page.data.title}</h1>
-      <Content />
+  <section class="sponsorship-hero">
+    <img
+      class="sponsorship-hero__image"
+      src="/hero.jpg"
+      alt="Ouray County Soccer Club players running onto a field in the San Juan Mountains"
+    />
+    <div class="container sponsorship-hero__content">
+      <div class="sponsorship-hero__title">
+        <p class="eyebrow">Support Us</p>
+        <h1>{page.data.title}</h1>
+        <p>{page.data.summary}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sponsorship-details">
+    <div class="container">
+      <div class="prose">
+        <Content />
+      </div>
       {
         donateUrl && (
-          <p class="donate-cta">
+          <aside class="donate-cta" aria-label="Donation call to action">
+            <div>
+              <p class="eyebrow">Make a difference</p>
+              <h2>Help local players thrive</h2>
+              <p>
+                Sponsor a 2027 practice jersey or make a tax-deductible gift to
+                support youth soccer in Ouray County.
+              </p>
+            </div>
             <a class="btn btn--primary" href={donateUrl} rel="noopener">
               Donate Now
             </a>
-          </p>
+          </aside>
         )
       }
     </div>
@@ -42,10 +65,209 @@ const donateUrl = settings?.data.donateUrl;
 </BaseLayout>
 
 <style>
-  .prose {
-    max-width: 70ch;
+  .sponsorship-hero {
+    position: relative;
+    min-height: clamp(28rem, 62vw, 42rem);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--color-primary);
   }
+
+  .sponsorship-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(6, 27, 56, 0.82) 0%,
+      rgba(6, 27, 56, 0.28) 55%,
+      rgba(6, 27, 56, 0.04) 100%
+    );
+  }
+
+  .sponsorship-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .sponsorship-hero__content {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(2rem, 7vw, 5rem);
+  }
+
+  .sponsorship-hero__title {
+    width: min(100%, 38rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    border-left: 0.5rem solid var(--color-accent);
+    box-shadow: var(--shadow);
+  }
+
+  .sponsorship-hero__title h1 {
+    color: inherit;
+  }
+
+  .sponsorship-hero__title p:last-child {
+    max-width: 40ch;
+    margin-bottom: 0;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+  }
+
+  .sponsorship-hero .eyebrow {
+    color: #8edcff;
+  }
+
+  .sponsorship-details {
+    background: linear-gradient(90deg, #dff3fc 0 34%, var(--color-bg) 34%);
+  }
+
+  .prose {
+    max-width: 62rem;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    background: var(--color-bg);
+    box-shadow: var(--shadow);
+  }
+
+  .prose :global(h2) {
+    margin-top: 2.5rem;
+  }
+
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .prose :global([id='2027-practice-jersey-sponsorships']) {
+    margin-top: 3rem;
+    padding: 1.25rem 1.5rem;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    border-left: 0.5rem solid var(--color-accent);
+  }
+
+  .prose :global([id='2027-practice-jersey-sponsorships'] + ul) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin: 1.25rem 0 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .prose :global([id='2027-practice-jersey-sponsorships'] + ul li) {
+    padding: 1.25rem;
+    background: #dff3fc;
+    border-top: 0.35rem solid var(--color-accent);
+    border-radius: var(--radius-sm);
+  }
+
+  .prose :global([id='2027-practice-jersey-sponsorships'] + ul strong) {
+    display: block;
+    color: var(--color-primary);
+    font-size: 1.12rem;
+  }
+
+  .prose :global(#what-your-support-makes-possible + ul) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 2rem;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .prose :global(#what-your-support-makes-possible + ul li) {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+
+  .prose :global(#what-your-support-makes-possible + ul li::before) {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-dark);
+    font-weight: 800;
+  }
+
+  .prose :global(#inclusive-community-values) {
+    margin: 2.75rem -1rem 0;
+    padding: 1.5rem 1.5rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .prose :global(#inclusive-community-values ~ p) {
+    margin-inline: 0.5rem;
+  }
+
   .donate-cta {
-    margin-top: 1.5rem;
+    max-width: 62rem;
+    margin: 1.5rem auto 0;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    box-shadow: var(--shadow);
+  }
+
+  .donate-cta h2 {
+    color: inherit;
+  }
+
+  .donate-cta p:last-child {
+    max-width: 52ch;
+    margin-bottom: 0;
+  }
+
+  .donate-cta .eyebrow {
+    color: #8edcff;
+  }
+
+  .donate-cta .btn {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    .sponsorship-hero {
+      min-height: 32rem;
+    }
+
+    .sponsorship-hero::after {
+      background: linear-gradient(
+        0deg,
+        rgba(6, 27, 56, 0.88) 0%,
+        rgba(6, 27, 56, 0.12) 75%
+      );
+    }
+
+    .sponsorship-hero__image {
+      object-position: 58% center;
+    }
+
+    .sponsorship-hero__title {
+      width: 100%;
+    }
+
+    .sponsorship-details {
+      background: #dff3fc;
+    }
+
+    .prose :global([id='2027-practice-jersey-sponsorships'] + ul),
+    .prose :global(#what-your-support-makes-possible + ul) {
+      grid-template-columns: 1fr;
+    }
+
+    .donate-cta {
+      align-items: flex-start;
+      flex-direction: column;
+    }
   }
 </style>
