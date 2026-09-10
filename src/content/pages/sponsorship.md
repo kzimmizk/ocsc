@@ -14,8 +14,8 @@ players opportunities to grow.
 
 ## 2027 Practice Jersey Sponsorships
 
-- **Platinum — $5,000+:** Two large logos on the 2027 training shirt
-- **Gold — $3,000:** One large logo on the 2027 training shirt
+- **Platinum — $3,000:** One X-Large logo on the 2027 training shirt
+- **Gold — $1,000:** One large logo on the 2027 training shirt
 - **Silver — $500:** One small logo on the 2027 training shirt
 - **Bronze — $250:** Sponsor name on the 2027 training shirt
 
