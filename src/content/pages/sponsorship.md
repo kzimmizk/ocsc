@@ -6,11 +6,12 @@ summary: "Your support keeps youth soccer affordable and growing in Ouray County
 
 ## Support Ouray County Soccer
 
-Ouray County Soccer Club (OCSC) is a 501(c)(3) volunteer-run nonprofit committed
-to developing confident and competitive athletes with an emphasis on respect
-and personal growth. Your support helps us keep soccer accessible, maintain our
-fields and facilities, develop and support coaches and referees, and give local
-players opportunities to grow.
+Ouray County Soccer Club (OCSC) is a 501(c)(3) volunteer-run nonprofit supporting
+youth across Ouray County. OCSC is dedicated to developing confident and
+competitive athletes with an emphasis on respect and personal growth. We teach
+and promote the game through quality coaching and abundant playing
+opportunities, with sportsmanship and respect for teammates, opposing players,
+and referees as a primary focus.
 
 ## 2027 Practice Jersey Sponsorships
 
@@ -26,13 +27,12 @@ supports the club's general fund. Donations are tax-deductible.
 ## What Your Support Makes Possible
 
 - Financial aid
-- Enhanced player programming
+- Improved programming
 - Equipment purchases
-- Soccer programs, fields, and facilities
-- Referee training and recruitment
-- Coach development and support
-- Uniform reimbursement
-- Tournament participation
+- Affordable program fees
+- Facility rentals
+- Coach development
+- Referee development
 
 ## Inclusive Community Values
 
@@ -40,6 +40,6 @@ We welcome players of every background, ability, and experience level—soccer i
 for everyone in our community.
 
 Questions or ready to sponsor a jersey? Email
-[sponsorship@ouraycountysoccer.org](mailto:sponsorship@ouraycountysoccer.org).
+[admin@ouraycountysoccer.org](mailto:admin@ouraycountysoccer.org).
 
 Ouray County Soccer Club is a tax-exempt 501(c)(3) nonprofit. **EIN: 84-3830172.**
