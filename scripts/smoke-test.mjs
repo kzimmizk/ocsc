@@ -20,6 +20,7 @@ const checks = [
   { file: 'index.html', mustInclude: ['Learn More', 'Our Sponsors', 'Alpine Bank', '501(c)(3) nonprofit', 'EIN 84-3830172'] },
   { file: 'about/index.html', mustInclude: ['Our Mission'] },
   { file: 'programs/index.html', mustInclude: ['Program Overview', 'PreK/K', 'Mountain Region League'] },
+  { file: 'coaches-corner/index.html', mustInclude: ["Coaches' Corner", 'Drill Library', '/coaches-corner/drill-library.pdf'] },
   { file: 'contacts/index.html', mustInclude: ['Contact Us', 'President', 'president@ouraycountysoccer.org', 'Director of Coaching (Interim)', 'doc@ouraycountysoccer.org', 'admin@ouraycountysoccer.org'] },
   { file: 'sponsorship/index.html', mustInclude: ['Our Sponsors', 'zeffy.com'] },
   { file: 'documents/index.html', mustInclude: ['Bylaws of the Ouray County Soccer Club', '/documents/bylaws.pdf', 'Medical Release Form', 'Code of Conduct'] },
@@ -63,6 +64,12 @@ for (const file of await readdir('src/content/documents')) {
   const yaml = await readFile(join('src/content/documents', file), 'utf8');
   const match = yaml.match(/^url:\s*["']?(\/[^"'\s]+)["']?/m);
   if (match) await assertBuiltAsset(match[1], `documents/${file}`);
+}
+
+for (const file of await readdir('src/content/coaching-resources')) {
+  const yaml = await readFile(join('src/content/coaching-resources', file), 'utf8');
+  const match = yaml.match(/^url:\s*["']?(\/[^"'\s]+)["']?/m);
+  if (match) await assertBuiltAsset(match[1], `coaching-resources/${file}`);
 }
 
 for (const file of await readdir('src/content/sponsors')) {

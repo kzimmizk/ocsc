@@ -101,4 +101,23 @@ const documents = defineCollection({
   }),
 });
 
-export const collections = { settings, sponsors, pages, documents };
+// Coaching resources — drills, guides, and other materials for club coaches.
+const coachingResources = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/coaching-resources' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    // Full URL or a self-hosted file in public/coaches-corner/.
+    url: linkOrPath,
+    category: z.string().default('Coaching Resources'),
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = {
+  settings,
+  sponsors,
+  pages,
+  documents,
+  coachingResources,
+};

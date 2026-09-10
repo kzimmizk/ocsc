@@ -24,6 +24,7 @@ src/content/                     defined & validated in src/content.config.ts
   settings/site.yaml   →  global config (1 file)         → data collection
   sponsors/*.yaml      →  one file per sponsor            → data collection
   documents/*.yaml     →  one file per club document      → data collection
+  coaching-resources/*.yaml → one file per coaching resource → data collection
   pages/*.md           →  free-form page copy            → markdown collection
 ```
 

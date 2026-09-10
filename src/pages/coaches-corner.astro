@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const resources = (await getCollection('coachingResources')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const fileKind = (url: string) => {
+  const path = url.split('?')[0];
+  const ext = path.slice(path.lastIndexOf('.') + 1).toLowerCase();
+  return ext.length <= 4 ? ext.toUpperCase() : 'FILE';
+};
+
+const categories: string[] = [];
+for (const resource of resources) {
+  if (!categories.includes(resource.data.category)) {
+    categories.push(resource.data.category);
+  }
+}
+---
+
+<BaseLayout
+  title="Coaches' Corner"
+  description="Training resources and practical tools for Ouray County Soccer Club coaches."
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">For Coaches</p>
+      <h1>Coaches' Corner</h1>
+      <p class="section__intro">
+        Training resources and practical tools to help our coaches plan engaging,
+        age-appropriate sessions.
+      </p>
+
+      {
+        categories.map((category) => (
+          <div class="resource-group">
+            <h2>{category}</h2>
+            <ul class="resource-list">
+              {resources
+                .filter((resource) => resource.data.category === category)
+                .map((resource) => (
+                  <li class="resource">
+                    <a class="resource__link" href={resource.data.url} rel="noopener">
+                      <span class="resource__icon" aria-hidden="true">
+                        {fileKind(resource.data.url)}
+                      </span>
+                      <span>
+                        <span class="resource__title">{resource.data.title}</span>
+                        {resource.data.description && (
+                          <span class="resource__description">
+                            {resource.data.description}
+                          </span>
+                        )}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .resource-group {
+    margin-top: 2rem;
+  }
+  .resource-group h2 {
+    font-size: 1.25rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .resource-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    max-width: 720px;
+  }
+  .resource__link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .resource__link:hover {
+    text-decoration: none;
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow);
+  }
+  .resource__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 36px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    border-radius: 6px;
+  }
+  .resource__title {
+    display: block;
+    font-weight: 700;
+  }
+  .resource__description {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+</style>

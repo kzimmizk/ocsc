@@ -135,6 +135,25 @@ link. To remove a document, delete its file.
 
 ---
 
+## 6. Add a Coaches' Corner resource
+
+Coaching materials appear on the **Coaches' Corner** page. Upload the PDF, Word
+document, or other file to `public/coaches-corner/`, then create a YAML file in
+`src/content/coaching-resources/`:
+
+```yaml
+title: "Practice Planner"
+description: "A printable worksheet for planning a training session."
+url: "/coaches-corner/practice-planner.docx"
+category: "Planning Tools"
+order: 1
+```
+
+The file badge is generated from the filename extension. Resources may also use
+a full `https://` URL when a file is hosted elsewhere.
+
+---
+
 ## If something breaks
 
 The build **checks your files** when you save. If you make a mistake (e.g. a
