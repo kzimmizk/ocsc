@@ -7,6 +7,10 @@ summary: "From a first introduction to the game to competitive travel soccer —
 OCSC offers soccer for every age and stage, from a first introduction to the
 game to competitive travel soccer. Here's what to expect at each level.
 
+> **Need help with registration fees?** OCSC offers discounts to families who
+> qualify for free or reduced-price school meals, subject to available club
+> funding. [Learn about financial assistance and required proof](/financial-assistance/).
+
 ## PreK/K
 
 OCSC's program for PreK and Kindergarten players is all about introducing the

@@ -19,10 +19,12 @@ const assertBuiltAsset = async (assetPath, source) => {
 const checks = [
   { file: 'index.html', mustInclude: ['Learn More', 'Our Sponsors', 'Alpine Bank', '501(c)(3) nonprofit', 'EIN 84-3830172'] },
   { file: 'about/index.html', mustInclude: ['Our Mission'] },
-  { file: 'programs/index.html', mustInclude: ['Program Overview', 'PreK/K', 'Mountain Region League'] },
+  { file: 'programs/index.html', mustInclude: ['Program Overview', 'PreK/K', 'Mountain Region League', '/financial-assistance/'] },
+  { file: 'financial-assistance/index.html', mustInclude: ['Financial Assistance', '50%', '100%', 'Proof of Approval', '/images/financial-assistance-proof-example.png'] },
+  { file: 'coaches-corner/index.html', mustInclude: ["Coaches' Corner", 'Drill Library', '/coaches-corner/drill-library.pdf'] },
   { file: 'contacts/index.html', mustInclude: ['Contact Us', 'President', 'president@ouraycountysoccer.org', 'Director of Coaching (Interim)', 'doc@ouraycountysoccer.org', 'admin@ouraycountysoccer.org'] },
   { file: 'sponsorship/index.html', mustInclude: ['Our Sponsors', 'zeffy.com'] },
-  { file: 'documents/index.html', mustInclude: ['Bylaws of the Ouray County Soccer Club', '/documents/bylaws.pdf', 'Medical Release Form', 'Code of Conduct'] },
+  { file: 'documents/index.html', mustInclude: ['Bylaws of the Ouray County Soccer Club', '/documents/bylaws.pdf', 'Medical Release Form', 'Code of Conduct', 'Financial Assistance', 'Colorado Free and Reduced-Price School Meal Guidelines', 'School Meal Application'] },
 ];
 
 let failures = 0;
@@ -65,6 +67,12 @@ for (const file of await readdir('src/content/documents')) {
   if (match) await assertBuiltAsset(match[1], `documents/${file}`);
 }
 
+for (const file of await readdir('src/content/coaching-resources')) {
+  const yaml = await readFile(join('src/content/coaching-resources', file), 'utf8');
+  const match = yaml.match(/^url:\s*["']?(\/[^"'\s]+)["']?/m);
+  if (match) await assertBuiltAsset(match[1], `coaching-resources/${file}`);
+}
+
 for (const file of await readdir('src/content/sponsors')) {
   const yaml = await readFile(join('src/content/sponsors', file), 'utf8');
   const match = yaml.match(/^logo:\s*["']?([^"'\s]+)["']?/m);
@@ -77,6 +85,7 @@ for (const asset of [
   '/apple-touch-icon.png',
   '/favicon.png',
   '/hero.jpg',
+  '/images/financial-assistance-proof-example.png',
   '/logo.png',
   '/logo.webp',
 ]) {
